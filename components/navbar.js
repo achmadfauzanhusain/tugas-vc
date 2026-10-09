@@ -38,7 +38,7 @@ export default function Navbar() {
           <span className="grid h-8 w-8 place-items-center rounded-full bg-lime-300 text-sm">
             S
           </span>
-          Seedbridge
+          Chang
         </Link>
 
         {/* Desktop navigation */}
