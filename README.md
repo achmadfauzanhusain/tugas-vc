@@ -1,1 +1,1 @@
-(./tampilan/home.png)
+![Home](/tampilan/home.png)
