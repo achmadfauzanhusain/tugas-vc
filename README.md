@@ -1,1 +1,1 @@
-![Dashboard](./tampilan/home.png)
+(./tampilan/home.png)
