@@ -35,9 +35,6 @@ export default function Navbar() {
           onClick={() => setMenuOpen(false)}
           className="flex shrink-0 items-center gap-2 font-bold tracking-tight text-slate-900"
         >
-          <span className="grid h-8 w-8 place-items-center rounded-full bg-lime-300 text-sm">
-            S
-          </span>
           Chang
         </Link>
 
