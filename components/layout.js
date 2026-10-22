@@ -10,9 +10,11 @@ const poppins = Poppins({
 const Layout = ({ children }) => {
   return (
     <>
-      <Navbar />
-      <div className={`${poppins.className} font-sans`}>
-        {children}
+      <div className={`${poppins.className}`}>
+        <Navbar />
+        <div>
+          {children}
+        </div>
       </div>
     </>
   );
