@@ -2,6 +2,8 @@ jadi saya ada 2 komponen dan 3 halaman, pertama komponen navbar yang saya pasang
 
 trus manipulasi state saya terapkan di website saya di bagian navbar, slain itu useState saya gunakan untuk search atau mencari startup, nextnya useState juga akan digunakan di apply startup, register dan login.
 
+trus saya juga menyimpan item ang berulang seperti list tstartup didalam array trus saya map
+
 ## Home
 ![hide](./public/tampilan/gambar1.png)
 
