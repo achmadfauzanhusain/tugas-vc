@@ -1,8 +1,6 @@
-jadi saya ada 2 komponen dan 3 halaman, pertama komponen navbar yang saya pasang di komponen layout, trus didalam komponen layout ada children. jadi, halaman layout ini yang membungkus semua halaman web. dan sisanya saya ada 3 halaman
+karena project saya tentang venture capital atau pendanaan startup jadi saya memanggil API berita tentang teknologi dari GNEWS dan output beritanya ada didalam halaman /news
 
-trus manipulasi state saya terapkan di website saya di bagian navbar, slain itu useState saya gunakan untuk search atau mencari startup, nextnya useState juga akan digunakan di apply startup, register dan login.
-
-trus saya juga menyimpan item yang berulang seperti list tstartup didalam array trus saya map
+trus saya menambahkan state loading tapi lebih modern yaitu skeleton loading
 
 ## Home
 ![hide](./public/tampilan/gambar1.png)

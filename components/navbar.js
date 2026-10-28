@@ -7,6 +7,7 @@ const pages = [
   { label: "Home", href: "/" },
   { label: "Startups", href: "/startups" },
   { label: "Apply", href: "/apply" },
+  { label: "News", href: "/news" },
 ];
 
 const sectors = [
