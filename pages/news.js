@@ -27,6 +27,9 @@ const pillActive =
 const pillIdle =
   "border-neutral-900/15 text-neutral-700 hover:bg-neutral-900/5 dark:border-white/20 dark:text-neutral-300 dark:hover:bg-white/10";
 
+// Blok dasar untuk skeleton
+const bone = "rounded bg-neutral-900/10 dark:bg-white/10";
+
 function formatDate(iso) {
   if (!iso) return "";
   try {
@@ -42,6 +45,7 @@ function formatDate(iso) {
 
 function Thumb({ src, alt, className = "" }) {
   const [failed, setFailed] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   if (!src || failed) {
     return (
@@ -54,14 +58,28 @@ function Thumb({ src, alt, className = "" }) {
   }
 
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={src}
-      alt={alt}
-      loading="lazy"
-      onError={() => setFailed(true)}
-      className={`object-cover ${className}`}
-    />
+    <div
+      className={`relative overflow-hidden bg-neutral-900/5 dark:bg-white/10 ${className}`}
+    >
+      {!loaded && (
+        <div className="absolute inset-0 animate-pulse bg-neutral-900/10 dark:bg-white/10" />
+      )}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        ref={(el) => {
+          // gambar yang sudah ter-cache bisa selesai sebelum onLoad terpasang
+          if (el?.complete && el.naturalWidth > 0) setLoaded(true);
+        }}
+        src={src}
+        alt={alt}
+        loading="lazy"
+        onLoad={() => setLoaded(true)}
+        onError={() => setFailed(true)}
+        className={`h-full w-full object-cover transition-opacity duration-500 ${
+          loaded ? "opacity-100" : "opacity-0"
+        }`}
+      />
+    </div>
   );
 }
 
@@ -133,13 +151,51 @@ function FeaturedCard({ article }) {
 
 function SkeletonCard() {
   return (
-    <div className={`animate-pulse overflow-hidden rounded-2xl border ${border}`}>
-      <div className="h-48 bg-neutral-900/5 dark:bg-white/10" />
-      <div className="space-y-3 p-6">
-        <div className="h-3 w-1/3 rounded bg-neutral-900/10 dark:bg-white/10" />
-        <div className="h-5 w-full rounded bg-neutral-900/10 dark:bg-white/10" />
-        <div className="h-5 w-2/3 rounded bg-neutral-900/10 dark:bg-white/10" />
-        <div className="h-3 w-full rounded bg-neutral-900/5 dark:bg-white/5" />
+    <div
+      className={`flex animate-pulse flex-col overflow-hidden rounded-2xl border ${border}`}
+    >
+      <div className="h-48 w-full bg-neutral-900/5 dark:bg-white/10" />
+      <div className="flex flex-1 flex-col justify-between gap-6 p-6">
+        <div className="space-y-3">
+          <div className={`h-3 w-1/4 ${bone}`} />
+          <div className={`h-5 w-full ${bone}`} />
+          <div className={`h-5 w-4/5 ${bone}`} />
+          <div className="space-y-2 pt-2">
+            <div className={`h-3 w-full ${bone} opacity-60`} />
+            <div className={`h-3 w-full ${bone} opacity-60`} />
+            <div className={`h-3 w-2/3 ${bone} opacity-60`} />
+          </div>
+        </div>
+        <div className="flex items-center justify-between">
+          <div className={`h-3 w-20 ${bone}`} />
+          <div className={`h-3 w-16 ${bone}`} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FeaturedSkeleton() {
+  return (
+    <div
+      className={`grid animate-pulse overflow-hidden rounded-3xl border md:grid-cols-2 ${border}`}
+    >
+      <div className="h-64 w-full bg-neutral-900/5 md:h-full md:min-h-80 dark:bg-white/10" />
+      <div className="flex flex-col justify-between gap-10 p-7 sm:p-10">
+        <div className="space-y-4">
+          <div className={`h-3 w-1/3 ${bone}`} />
+          <div className={`h-8 w-full ${bone}`} />
+          <div className={`h-8 w-3/4 ${bone}`} />
+          <div className="space-y-2 pt-3">
+            <div className={`h-4 w-full ${bone} opacity-60`} />
+            <div className={`h-4 w-full ${bone} opacity-60`} />
+            <div className={`h-4 w-5/6 ${bone} opacity-60`} />
+          </div>
+        </div>
+        <div className="flex items-center justify-between">
+          <div className={`h-3 w-24 ${bone}`} />
+          <div className={`h-3 w-32 ${bone}`} />
+        </div>
       </div>
     </div>
   );
@@ -147,7 +203,7 @@ function SkeletonCard() {
 
 const News = () => {
   const [category, setCategory] = useState("technology");
-  const [regionId, setRegionId] = useState("id");
+  const [regionId, setRegionId] = useState("global");
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -255,10 +311,9 @@ const News = () => {
       {/* Articles */}
       <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8 sm:pb-28">
         {loading && (
-          <div className="space-y-4">
-            <div
-              className={`h-80 animate-pulse rounded-3xl border bg-neutral-900/5 dark:bg-white/5 ${border}`}
-            />
+          <div className="space-y-4" aria-busy="true" aria-live="polite">
+            <span className="sr-only">Loading news…</span>
+            <FeaturedSkeleton />
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {[0, 1, 2].map((i) => (
                 <SkeletonCard key={i} />
