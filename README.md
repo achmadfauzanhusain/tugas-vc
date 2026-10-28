@@ -1,7 +1,9 @@
-karena project saya tentang venture capital atau pendanaan startup jadi saya memanggil API berita tentang teknologi dari GNEWS dan output beritanya ada didalam halaman /news
+karena project saya tentang venture capital atau pendanaan startup jadi saya memanggil API berita tentang teknologi dari GNEWS dan output beritanya ada didalam halaman /news,
+
+link api : https://gnews.io/dashboard
 
 
-state loading : 
+state loading yang ada di halaman /news: 
 `      <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8 sm:pb-28">
         {loading && (
           <div className="space-y-4" aria-busy="true" aria-live="polite">
